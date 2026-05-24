@@ -12,27 +12,14 @@ except ImportError:
             pass
 
 class Album(models.Model):
-    """Album model to group photos"""
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(blank=True)
-    
-    # FIXED: Use CloudinaryField for cover photo too
-    if CLOUDINARY_AVAILABLE:
-        cover_photo = CloudinaryField('cover_photo', blank=True, null=True)
-    else:
-        cover_photo = models.ImageField(upload_to='album_covers/', blank=True, null=True)
-    
+    cover_photo = CloudinaryField('cover_photo', blank=True, null=True)  # ← This line
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
-    class Meta:
-        ordering = ['-created_at']
-    
     def __str__(self):
         return self.name
-    
-    def get_absolute_url(self):
-        return reverse('album_detail', args=[str(self.id)])
     
     def photo_count(self):
         return self.photos.count()
