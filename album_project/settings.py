@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'whitenoise',  # Added for static files
     'gallery',
+    'cloudinary_storage',
+    'cloudinary',
 ]
 
 # Cloudinary settings
